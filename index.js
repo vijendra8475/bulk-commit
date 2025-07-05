@@ -8,6 +8,10 @@ const data = {
   date: date
 };
 
-jsonfile.writeFile(path, data,);
-
-simpleGit().add([path]).commit(Date,{'--DATE': date}).push('origin', 'main');
+(async () => {
+  await jsonfile.writeFile(path, data);
+  const git = simpleGit();
+  await git.add([path]);
+  await git.commit(`Update date to ${date}`, undefined, { '--date': date });
+  await git.push();
+})();
